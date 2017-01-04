@@ -1,7 +1,13 @@
 #!/bin/sh
 
-# Provide a way to get the jars out of the container
-ln -s /base/*.jar /minecraft/
-
 # Start Minecraft server
-cd /minecraft && java -jar spigot*.jar
+# shellcheck disable=SC2154 
+cd /base && java -Dcom.mojang.eula.agree=${spigot_eula} -jar spigot*.jar \
+  --bukkit-settings "${bukkit_settings}" \
+  --commands-settings "${spigot_commands}" \
+  --config "${spigot_config}" \
+  --level-name "${spigot_level_name}" \
+  --plugins "${spigot_plugins}" \
+  --port "${spigot_port}" \
+  --spigot-settings "${spigot_settings}" \
+  --world-dir "${spigot_world_dir}"
